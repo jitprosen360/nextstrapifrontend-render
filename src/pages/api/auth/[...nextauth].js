@@ -51,6 +51,7 @@ export default NextAuth({
       session.jwt = token.jwt;
       return Promise.resolve(session);
     },
+   
     jwt: async ({ token, user , account }) => {
       const isSignIn = user ? true : false;
       if (isSignIn) {
@@ -60,4 +61,6 @@ export default NextAuth({
       return Promise.resolve(token);
     },
   },
+
+  secret: process.env.NEXTAUTH_SECRET,
 });
