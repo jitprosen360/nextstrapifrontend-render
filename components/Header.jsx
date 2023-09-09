@@ -61,7 +61,7 @@ const Header = () => {
         >
             <Wrapper className="h-[60px] flex justify-between items-center">
                 <Link href="/">
-                    <img src="/logo.jpg" className="w-[40px] md:w-[60px]" />
+                    <img src="/logo.png" className="w-[100px] md:w-[80px]" />
                 </Link>
 
                 <Menu
@@ -113,12 +113,21 @@ const Header = () => {
         <button onClick={signOut}>Sign out</button>
       ) : (
         <Link href="/signin">
-          <button>Sign In</button>
-        </Link>
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-sm">Sign In</button>
+      </Link>
       )}
-       <Link href="/register">
-          <button>Sign up</button>
-        </Link>
+
+{session ? (
+        ""
+      ) : (
+        <Link href="/register">
+        <button className="bg-green-500 hover:bg-green-700 text-white 
+        font-bold py-2 px-4 rounded-full shadow-sm">Sign up</button>
+      </Link>
+      )}
+
+
+ 
                    
                     {/* Mobile icon start */}
                     <div className="w-8 md:w-12 h-8 md:h-12 rounded-full flex md:hidden justify-center items-center hover:bg-black/[0.05] cursor-pointer relative -mr-2">

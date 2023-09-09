@@ -106,7 +106,7 @@ const Footer = () => {
             <Wrapper className="flex justify-between mt-10 flex-col md:flex-row gap-[10px] md:gap-0">
                 {/* LEFT START */}
                 <div className="text-[12px] text-white/[0.5] hover:text-white cursor-pointer text-center md:text-left">
-                    © 2023 Nike, Inc. All Rights Reserved
+                    © 2023 jitprosen360@gmail.com, Inc. All Rights Reserved
                 </div>
                 {/* LEFT END */}
 

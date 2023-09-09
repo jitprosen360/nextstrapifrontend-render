@@ -120,12 +120,7 @@ const Cart = () => {
                                     Checkout
                                     {loading && <img src="/spinner.svg" />}
                                 </button> */}
-                                {session && (
-        <div >
-          <div> {session.user.email}</div>
-          <div> {session.user.username}</div>
-        </div>
-      )}
+
                            
                                 {session ? (
         <button

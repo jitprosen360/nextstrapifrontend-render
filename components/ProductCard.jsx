@@ -2,46 +2,39 @@ import { getDiscountedPricePercentage } from "../src/utils/helper";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-// const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL;
-const ProductCard = ({ data: { attributes: p, id,url } }) => {
 
- const imgurl = `${p.thumbnail.data[0].attributes.url}`
-    return (
-        <Link
-            href={`/product/${p.slug}`}
-            className="transform overflow-hidden bg-white duration-200 hover:scale-105 cursor-pointer"
-        >
-            <Image
-                width={500}
-                height={500}
-                src={imgurl}
-                alt={p.name}
-            />
-            <div className="p-4 text-black/[0.9]">
-                <h2 className="text-lg font-medium">{p.name}</h2>
-                <div className="flex items-center text-black/[0.5]">
-                    <p className="mr-2 text-lg font-semibold">
-                        &#8377;{p.price}
-                    </p>
+const ProductCard = ({ data: { attributes: p, id, url } }) => {
+  const imgurl = `${p.thumbnail.data[0].attributes.url}`;
 
-                    {p.original_price && (
-                        <>
-                            <p className="text-base  font-medium line-through">
-                                &#8377;{p.original_price}
-                            </p>
-                            <p className="ml-auto text-base font-medium text-green-500">
-                                {getDiscountedPricePercentage(
-                                    p.original_price,
-                                    p.price
-                                )}
-                                % off
-                            </p>
-                        </>
-                    )}
-                </div>
-            </div>
-        </Link>
-    );
+  return (
+    <Link href={`/product/${p.slug}`}>
+      <div className="bg-white shadow-lg p-4 rounded-lg cursor-pointer transition-transform transform hover:scale-105">
+        <Image
+          width={500}
+          height={500}
+          src={imgurl}
+          alt={p.name}
+          className="object-cover w-full h-40 mb-4"
+        />
+        <div className="text-black">
+          <h2 className="text-lg font-medium mb-2">{p.name}</h2>
+          <div className="flex items-center text-black/[0.7]">
+            <p className="text-lg font-semibold mr-2">&#8377;{p.price}</p>
+            {p.original_price && (
+              <>
+                <p className="text-base font-medium line-through mr-2">
+                  &#8377;{p.original_price}
+                </p>
+                <p className="text-base font-medium text-green-500">
+                  {getDiscountedPricePercentage(p.original_price, p.price)}% off
+                </p>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
 };
 
 export default ProductCard;

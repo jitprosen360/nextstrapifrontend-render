@@ -7,37 +7,28 @@ import { fetchDataFromApi } from "@/utils/api";
 export default function Home({ products }) {
     return (
         <main>
-            <HeroBanner />
-            <Wrapper>
-                {/* heading and paragaph start */}
-                <div className="text-center max-w-[800px] mx-auto my-[50px] md:my-[80px]">
-                    <div className="text-[28px] md:text-[34px] mb-5 font-semibold leading-tight">
-                      test
-                    </div>
-                    <div className="text-md md:text-xl">
-                     test
-                    </div>
+        <HeroBanner />
+        <Wrapper>
+            {/* heading and paragraph start */}
+            <div className="text-center max-w-[800px] mx-auto my-[50px] md:my-[80px]">
+                <div className="text-3xl md:text-4xl mb-5 font-semibold leading-tight text-gray-900">
+                    Latest Arrivals
                 </div>
-                {/* heading and paragaph end */}
-
-                {/* products grid start */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-14 px-5 md:px-0">
-                    {products?.data?.map((product) => (
-                        <ProductCard key={product?.id} data={product} />
-                    ))}
-                    {/* <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard /> */}
+                <div className="text-lg md:text-xl text-gray-700">
+                    Explore our newest products.
                 </div>
-                {/* products grid end */}
-            </Wrapper>
-        </main>
+            </div>
+            {/* heading and paragraph end */}
+    
+            {/* products grid start */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 my-14 px-5 md:px-0">
+                {products?.data?.map((product) => (
+                    <ProductCard key={product?.id} data={product} />
+                ))}
+            </div>
+            {/* products grid end */}
+        </Wrapper>
+    </main>
     );
 }
 

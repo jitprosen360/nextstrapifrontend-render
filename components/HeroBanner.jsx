@@ -33,32 +33,32 @@ const HeroBanner = () => {
             >
                 <div>
                     <img
-                        src="/logo.jpg"
+                        src="/slider1.jpg"
                         className="aspect-[16/10] md:aspect-auto object-cover"
                     />
-                    <div className="px-[15px] md:px-[40px] py-[10px] md:py-[25px] font-oswald bg-white absolute bottom-[25px] md:bottom-[75px] left-0 text-black/[0.9] text-[15px] md:text-[30px] uppercase font-medium cursor-pointer hover:opacity-90">
-                        Shop now
-                    </div>
+             <div className="flex items-center justify-center px-[15px] md:px-[40px] py-[5px] md:py-[10px] font-oswald bg-white absolute bottom-[25px] md:bottom-[75px] left-[50%] transform translate-x-[-50%] text-black/[0.9] text-[12px] md:text-[20px] uppercase font-medium cursor-pointer hover:opacity-90 rounded-full shadow-md hover:shadow-lg">
+    Shop now
+</div>
                 </div>
 
                 <div>
                     <img
-                       src="/logo.jpg"
+                       src="/slider2.jpg"
                         className="aspect-[16/10] md:aspect-auto object-cover"
                     />
-                    <div className="px-[15px] md:px-[40px] py-[10px] md:py-[25px] font-oswald bg-white absolute bottom-[25px] md:bottom-[75px] left-0 text-black/[0.9] text-[15px] md:text-[30px] uppercase font-medium cursor-pointer hover:opacity-90">
-                        Shop now
-                    </div>
+                            <div className="flex items-center justify-center px-[15px] md:px-[40px] py-[5px] md:py-[10px] font-oswald bg-white absolute bottom-[25px] md:bottom-[75px] left-[50%] transform translate-x-[-50%] text-black/[0.9] text-[12px] md:text-[20px] uppercase font-medium cursor-pointer hover:opacity-90 rounded-full shadow-md hover:shadow-lg">
+    Shop now
+</div>
                 </div>
 
                 <div>
                     <img
-                      src="/logo.jpg"
+                      src="/slider3.jpg"
                         className="aspect-[16/10] md:aspect-auto object-cover"
                     />
-                    <div className="px-[15px] md:px-[40px] py-[10px] md:py-[25px] font-oswald bg-white absolute bottom-[25px] md:bottom-[75px] left-0 text-black/[0.9] text-[15px] md:text-[30px] uppercase font-medium cursor-pointer hover:opacity-90">
-                        Shop now
-                    </div>
+                         <div className="flex items-center justify-center px-[15px] md:px-[40px] py-[5px] md:py-[10px] font-oswald bg-white absolute bottom-[25px] md:bottom-[75px] left-[50%] transform translate-x-[-50%] text-black/[0.9] text-[12px] md:text-[20px] uppercase font-medium cursor-pointer hover:opacity-90 rounded-full shadow-md hover:shadow-lg">
+    Shop now
+</div>
                 </div>
             </Carousel>
         </div>
