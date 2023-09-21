@@ -2,10 +2,12 @@ import { getDiscountedPricePercentage } from "../src/utils/helper";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addToFavorite } from "./../src/store/cartSlice";
 
-const ProductCard = ({ data: { attributes: p, id, url } }) => {
+const ProductCard = ({   data: { attributes: p, id, url } }) => {
   const imgurl = `${p.thumbnail.data[0].attributes.url}`;
-
+  const dispatch = useDispatch();
   return (
     <Link href={`/product/${p.slug}`}>
       <div className="bg-white shadow-lg p-4 rounded-lg cursor-pointer transition-transform transform hover:scale-105">
@@ -31,6 +33,7 @@ const ProductCard = ({ data: { attributes: p, id, url } }) => {
               </>
             )}
           </div>
+  
         </div>
       </div>
     </Link>

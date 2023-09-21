@@ -4,6 +4,7 @@ import cartSlice from "./cartSlice";
 export default configureStore({
     reducer: {
         cart: cartSlice,
+        fav: cartSlice,
     },
 });
 

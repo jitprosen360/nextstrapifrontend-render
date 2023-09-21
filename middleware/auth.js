@@ -15,15 +15,30 @@ export async function signIn({ email, password, username, id_token, access_token
     throw new Error('Email or username is required.');
   }
 
-  // If id_token and access_token are provided, include them in the payload
   if (id_token && access_token) {
     payload.id_token = id_token;
     payload.access_token = access_token;
   }
 
-  const res = await axios.post(`${strapiUrl}/api/auth/local`, payload);
-  return res.data;
+  try {
+    const response = await axios.post(`${strapiUrl}/api/auth/local`, payload);
+
+    // Manually include username in the response
+    return {
+      user: {
+        ...response.data.user,
+        username: username || response.data.user.username
+      },
+      
+      jwt: response.data.jwt,
+    };
+  
+  } catch (error) {
+    // Sign In Fail
+    return null;
+  }
 }
+
 
 
 // export async function signIn({ email, password,username }) {

@@ -4,7 +4,6 @@ import { signOut, useSession } from 'next-auth/react';
 import Link from "next/link";
 import Menu from "./Menu";
 import MenuMobile from ".//MenuMobile";
-
 import { IoMdHeartEmpty } from "react-icons/io";
 import { BsCart } from "react-icons/bs";
 import { BiMenuAltRight } from "react-icons/bi";
@@ -12,15 +11,22 @@ import { BiMenuAltRight } from "react-icons/bi";
 import { VscChromeClose } from "react-icons/vsc";
 import { fetchDataFromApi } from "../src/utils/api";
 import  {useSelector}  from "react-redux";
-   
+
 const Header = () => {
     const { data: session } = useSession();
     const cartItems  = useSelector((state) => state.cart.cartItems);
+    const favItems  = useSelector((state) => state.fav.favItems);
     const [mobileMenu, setMobileMenu] = useState(false);
     const [showCatMenu, setShowCatMenu] = useState(false);
     const [show, setShow] = useState("translate-y-0");
     const [lastScrollY, setLastScrollY] = useState(0);
     const [categories, setCategories] = useState(null);
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleDropdown = () => {
+      setIsOpen(!isOpen);
+    };
+  
 
     const controlNavbar = () => {
         if (window.scrollY > 200) {
@@ -78,15 +84,22 @@ const Header = () => {
                         categories={categories}
                     />
                 )}
+   
 
                 <div className="flex items-center gap-2 text-black">
                     {/* Icon start */}
-                    <div className="w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative">
+                  <Link href="/fav">
+                        <div className="w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative">
                         <IoMdHeartEmpty className="text-[19px] md:text-[24px]" />
-                        <div className="h-[14px] md:h-[18px] min-w-[14px] md:min-w-[18px] rounded-full bg-red-600 absolute top-1 left-5 md:left-7 text-white text-[10px] md:text-[12px] flex justify-center items-center px-[2px] md:px-[5px]">
-                            51
+                           
+                            {favItems.length > 0 && 
+                                    <div className="h-[14px] md:h-[18px] min-w-[14px] md:min-w-[18px] rounded-full bg-red-600 absolute top-1 left-5 md:left-7 text-white text-[10px] md:text-[12px] flex justify-center items-center px-[2px] md:px-[5px]">
+                                        {favItems.length}
+                                    </div>
+                                }
+                           
                         </div>
-                    </div>
+                    </Link>
                     {/* Icon end */}
 
                     {/* Icon start */}
@@ -102,20 +115,44 @@ const Header = () => {
                            
                         </div>
                     </Link>
-                    {/* Icon end */}
-                    {session && (
-        <div >
-          <div> {session.user.email}</div>
-          <div> {session.user.username}</div>
+              
+{ session ? ( <div className="relative inline-block text-left">
+      <div>
+        <button
+          type="button"
+          onClick={toggleDropdown}
+          className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+        >
+         {session.user.email}
+         {session.user.username}
+         {/* {console.log(session)} */}
+        </button>
+      </div>
+      {isOpen && (
+        <div className="absolute z-10 mt-2 bg-white border border-gray-300 rounded-md shadow-lg">
+          <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+            
+            <h3 className="block px-4 py-2 text-sm text-gray-700 ">My Account</h3>
+            <a href="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+              Profile 
+            </a>
+            <a href="/orders" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+               Orders
+            </a>
+         
+            <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+            <button onClick={signOut}>Sign out</button>
+            </a>
+          </div>
         </div>
       )}
-                    {session ? (
-        <button onClick={signOut}>Sign out</button>
-      ) : (
-        <Link href="/signin">
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-sm">Sign In</button>
-      </Link>
-      )}
+    </div>
+   ) : (
+    <Link href="/signin">
+    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-sm">Sign In</button>
+  </Link>
+  )}
+
 
 {session ? (
         ""

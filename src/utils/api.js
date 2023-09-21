@@ -48,3 +48,23 @@ export const makePaymentRequest = async (endpoint, payload, token) => {
 //         throw new Error(`Payment request failed: ${error.message}`);
 //     }
 // };
+
+// export const fetchUserOrders = async (token, sessionId) => {
+//     const options = {
+//       method: 'GET',
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//     };
+  
+//     try {
+//       const res = await fetch(`${API_URL}/orders?session.id=${sessionId}`, options);
+//       const data = await res.json();
+//       return data;
+//     } catch (error) {
+//       console.error('Error fetching user orders:', error);
+//       return null;
+//     }
+//   }
+  
+  

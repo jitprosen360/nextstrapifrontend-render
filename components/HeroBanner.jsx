@@ -34,7 +34,7 @@ const HeroBanner = () => {
                 <div>
                     <img
                         src="/slider1.jpg"
-                        className="aspect-[16/10] md:aspect-auto object-cover"
+                        className="aspect-[16/10] md:aspect-auto object-cover h-200"
                     />
              <div className="flex items-center justify-center px-[15px] md:px-[40px] py-[5px] md:py-[10px] font-oswald bg-white absolute bottom-[25px] md:bottom-[75px] left-[50%] transform translate-x-[-50%] text-black/[0.9] text-[12px] md:text-[20px] uppercase font-medium cursor-pointer hover:opacity-90 rounded-full shadow-md hover:shadow-lg">
     Shop now
@@ -44,7 +44,7 @@ const HeroBanner = () => {
                 <div>
                     <img
                        src="/slider2.jpg"
-                        className="aspect-[16/10] md:aspect-auto object-cover"
+                        className="aspect-[16/10] md:aspect-auto object-cover h-200"
                     />
                             <div className="flex items-center justify-center px-[15px] md:px-[40px] py-[5px] md:py-[10px] font-oswald bg-white absolute bottom-[25px] md:bottom-[75px] left-[50%] transform translate-x-[-50%] text-black/[0.9] text-[12px] md:text-[20px] uppercase font-medium cursor-pointer hover:opacity-90 rounded-full shadow-md hover:shadow-lg">
     Shop now
@@ -54,7 +54,7 @@ const HeroBanner = () => {
                 <div>
                     <img
                       src="/slider3.jpg"
-                        className="aspect-[16/10] md:aspect-auto object-cover"
+                        className="aspect-[16/10] md:aspect-auto object-cover h-200"
                     />
                          <div className="flex items-center justify-center px-[15px] md:px-[40px] py-[5px] md:py-[10px] font-oswald bg-white absolute bottom-[25px] md:bottom-[75px] left-[50%] transform translate-x-[-50%] text-black/[0.9] text-[12px] md:text-[20px] uppercase font-medium cursor-pointer hover:opacity-90 rounded-full shadow-md hover:shadow-lg">
     Shop now

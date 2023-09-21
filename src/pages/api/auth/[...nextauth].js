@@ -2,7 +2,7 @@ import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import { signIn } from '../../../../middleware/auth';
-
+import { makePaymentRequest } from "./../../../utils/api";
 
 export default NextAuth({
   // Configure one or more authentication providers
@@ -30,13 +30,15 @@ export default NextAuth({
          * We can expect it contains two properties: `email` and `password`
          */
         try {
-          const { user, jwt ,account } = await signIn({
+          const { user, jwt  } = await signIn({
             username: credentials.username,
             email: credentials.email,
             password: credentials.password,
             
           });
           
+          
+
           return { ...user, jwt };
         } catch (error) {
           // Sign In Fail
@@ -52,11 +54,12 @@ export default NextAuth({
       return Promise.resolve(session);
     },
    
-    jwt: async ({ token, user , account }) => {
+    jwt: async ({ token, user , session   }) => {
       const isSignIn = user ? true : false;
-      if (isSignIn) {
+      if (isSignIn ) {
         token.id = user.id;
         token.jwt = user.jwt;
+   
       }
       return Promise.resolve(token);
     },

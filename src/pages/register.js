@@ -81,7 +81,7 @@ const Register = () => {
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
               <input
-                type="text"
+                type="username"
                 name="username"
                 placeholder="Username"
                 value={formData.username}

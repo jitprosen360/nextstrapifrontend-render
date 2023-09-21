@@ -27,7 +27,7 @@ const Category = ({ category, products, slug }) => {
             <Wrapper>
                 <div className="text-center max-w-[800px] mx-auto mt-8 md:mt-0">
                     <div className="text-[28px] md:text-[34px] mb-5 font-semibold leading-tight">
-                        {category?.data?.[0]?.attributes?.name}
+                        {category?.data?.[0]?.attributes?.name} 
                     </div>
                 </div>
 
@@ -37,15 +37,6 @@ const Category = ({ category, products, slug }) => {
                         <ProductCard key={product?.id} data={product} />
                     ))}
                     
-                    {/* <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard /> */}
                 </div>
                 {/* products grid end */}
 

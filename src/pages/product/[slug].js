@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { IoMdHeartEmpty } from "react-icons/io";
 import Wrapper from "../../../components/Wrapper";
 import ProductDetailsCarousel from "../../../components/ProductDetailsCarousel";
@@ -8,18 +8,52 @@ import { getDiscountedPricePercentage } from "../../utils/helper";
 import ReactMarkdown from "react-markdown";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "../../store/cartSlice";
+import { addToFavorite } from "../../store/cartSlice";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const ProductDetails = ({ product, products }) => {
     const [selectedSize, setSelectedSize] = useState();
+    const [selectedColor, setSelectedColor] = useState("");
     const [showError, setShowError] = useState(false);
     const dispatch = useDispatch();
     const p = product.data?.[0]?.attributes;
-    
+ 
+    // const getImage = (color, images) => {
 
+    //     console.log("Color:", color);
+    //     console.log("Images:", images);
+
+    //     if (!images || !Array.isArray(images)) {
+    //         console.error("Invalid 'images' parameter:", images);
+    //         return "";
+    //     }
+        
+    //     const imageObject = images.find((image) => image.attributes.name === color);
+      
+    //     return imageObject ? imageObject.attributes.url : "";
+
+        
+    // };
+
+    // const getImage = (color) => {
+      
+    //     const images = p.image.data;
+    //     const imageObject = images.find((image) => image.attributes.name === color);
+    //     console.log("Color:", color);
+    //     console.log("Images:", images);
+    //     return imageObject ? imageObject.attributes.url : "";
+    // };
    
+
+    useEffect(() => {
+        if (product && product.attributes) {
+          const { attributes } = product;
+          setSelectedColor(attributes.colours[0].name);
+        }
+      }, [product, setSelectedColor]);
+
     const notify = () => {
         toast.success("Success. Check your cart!", {
             position: "bottom-right",
@@ -32,7 +66,7 @@ const ProductDetails = ({ product, products }) => {
             theme: "dark",
         });
     };
-    console.log(p);
+
    
     return (
         <div className="w-full md:py-20">
@@ -125,6 +159,26 @@ const ProductDetails = ({ product, products }) => {
                                 ))}
                             </div>
                             {/* SIZE END */}
+                            {/* <h4>Selected colour: {selectedColor}</h4> */}
+
+                            {/* <div className="colours">
+                {p.colours.data.map((colour) => (
+                  <span
+                    key={colour.name}
+                    className={`${
+                      selectedColor === colour.name ? "active" : ""
+                    }`}
+                    onClick={() => setSelectedColor(colour.name)}
+                  >
+                    <img
+                      src={`http://127.0.0.1:1337${getImage(colour.name)}`}
+                      alt={colour.name}
+                    />
+                  </span>
+                ))}
+           
+
+              </div> */}
 
                             {/* SHOW ERROR START */}
                             {showError && (
@@ -165,9 +219,30 @@ const ProductDetails = ({ product, products }) => {
                         {/* ADD TO CART BUTTON END */}
 
                         {/* WHISHLIST BUTTON START */}
-                        <button className="w-full py-4 rounded-full border border-black text-lg font-medium transition-transform active:scale-95 flex items-center justify-center gap-2 hover:opacity-75 mb-10">
-                            Whishlist
-                            <IoMdHeartEmpty size={20} />
+                        <button
+                            className="w-full py-4 rounded-full bg-black text-white text-lg font-medium transition-transform active:scale-95 mb-3 hover:opacity-75"
+                            onClick={() => {
+                                if (!selectedSize) {
+                                    setShowError(true);
+                                    document
+                                        .getElementById("sizesGrid")
+                                        .scrollIntoView({
+                                            block: "center",
+                                            behavior: "smooth",
+                                        });
+                                } else {
+                                    dispatch(
+                                        addToFavorite({
+                                            ...product?.data?.[0],
+                                            selectedSize,
+                                            oneQuantityPrice: p.price,
+                                        })
+                                    );
+                                    notify();
+                                }
+                            }}
+                        >
+                            Add to Favorite
                         </button>
                         {/* WHISHLIST BUTTON END */}
 
