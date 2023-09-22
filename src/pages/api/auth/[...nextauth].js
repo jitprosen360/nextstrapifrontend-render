@@ -2,6 +2,7 @@ import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import { signIn } from '../../../../middleware/auth';
+import { getSession } from 'next-auth/react';
 
 export default NextAuth({
   // Configure one or more authentication providers
@@ -53,7 +54,7 @@ export default NextAuth({
       return Promise.resolve(session);
     },
    
-    jwt: async ({ token, user    }) => {
+    jwt: async ({ token, user , req   }) => {
       const isSignIn = user ? true : false;
       if (isSignIn ) {
         token.id = user.id;
@@ -62,13 +63,25 @@ export default NextAuth({
       }
       return Promise.resolve(token);
     },
-    signOut: async (params) => {
-      // Add logic to clear the user's session or perform any necessary logout actions
-      await signOut(params);
-  
-      return Promise.resolve();
-    },
   },
+  signOut: async (session) => {
+    // Use getSession to get the user's session token
+    const token = await getSession({ req: session.req });
+  
+    // Check if there is an active session
+    if (token) {
+      // Create a new short-lived token (e.g., expires in a few seconds)
+      const newToken = await signToken({ userId: token.user }, { expiresIn: '5s' });
+  
+      // Return the new token (optional) or a success message
+      return Promise.resolve({ newToken, success: true });
+    }
+  
+    // Return a response if there is no active session
+    return Promise.resolve({ success: false });
+  },
+  
+  
 
   secret: process.env.NEXTAUTH_SECRET,
 });

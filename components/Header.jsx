@@ -27,9 +27,6 @@ const Header = () => {
       setIsOpen(!isOpen);
     };
   
-    const handleLogout = async () => {
-        await signOut(data);
-      };
 
     const controlNavbar = () => {
         if (window.scrollY > 200) {
@@ -58,14 +55,10 @@ const Header = () => {
     const fetchCategories = async () => {
         const { data } = await fetchDataFromApi("/api/categories?populate=*");
         setCategories(data);
-        
-        
     };
     useEffect(() => {
-        
         if (session == null) return;
         console.log('session.jwt', session.jwt);
-        
       }, [session]);
 
     return (
@@ -148,8 +141,8 @@ const Header = () => {
             </a>
          
             <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-            <button onClick={handleLogout}>Sign out</button>
-            
+            <button onClick={signOut}>Sign out</button>
+          {  console.log(signOut)}
             </a>
           </div>
         </div>
