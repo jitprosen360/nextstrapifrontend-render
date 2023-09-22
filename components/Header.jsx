@@ -79,11 +79,11 @@ const Header = () => {
         const { data } = await fetchDataFromApi("/api/categories?populate=*");
         setCategories(data);
     };
-    // useEffect(() => {
-    //     if (session == null) return;
-    //     console.log('session.jwt', session.jwt);
+    useEffect(() => {
+        if (session == null) return;
+        console.log('session.jwt', session.jwt);
        
-    //   }, [session]);
+      }, [session]);
 
     return (
         <header
