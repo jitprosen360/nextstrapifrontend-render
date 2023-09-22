@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Wrapper from "./Wrapper";
-import { signOut, useSession } from 'next-auth/react';
 import Link from "next/link";
 import Menu from "./Menu";
 import MenuMobile from ".//MenuMobile";
@@ -11,7 +10,7 @@ import { BiMenuAltRight } from "react-icons/bi";
 import { VscChromeClose } from "react-icons/vsc";
 import { fetchDataFromApi } from "../src/utils/api";
 import  {useSelector}  from "react-redux";
-
+import { signOut, useSession, getSession } from 'next-auth/react';
 const Header = () => {
     const { data: session } = useSession();
     const cartItems  = useSelector((state) => state.cart.cartItems);
@@ -30,25 +29,28 @@ const Header = () => {
     const handleLogout = async () => {
         try {
             await signOut();
-          // Clear the current session (e.g., invalidate the token or remove cookies)
-          // ...
     
-          // Generate a new session for the user (e.g., create a new token)
-          const newSession = await createNewSession(); // Implement createNewSession() as needed
+            // Clear the current session (e.g., invalidate the token or remove cookies)
+            // ...
     
-          // Update the client-side session with the new session
-          // ...
+            // Generate a new session for the user (e.g., create a new token)
+            const newSession = await createNewSession(); // Implement createNewSession() as needed
     
-          // Redirect the user to a post-logout page or display a success message
-          // ...
+            // Update the client-side session with the new session
+            const { data: updatedSession } = getSession(); // Get the updated session
+            if (updatedSession) {
+                // You can update your UI with the new session data if needed
+                // For example, you can update the user's name or email in the UI
+                console.log('Updated Session:', updatedSession);
+            }
     
-          // Alternatively, you can display a success message or update the UI
-          // ...
+            // Redirect the user to a post-logout page or display a success message
+            // ...
     
         } catch (error) {
-          console.error('Logout failed:', error);
+            console.error('Logout failed:', error);
         }
-      };
+    };
   
 
     const controlNavbar = () => {

@@ -76,7 +76,6 @@ export default NextAuth({
       // Return the new token (optional) or a success message
       return Promise.resolve({ token, success: true });
     }
-    await signOut({ callbackUrl: '/' });
     // Return a response if there is no active session
     return Promise.resolve({token, success: false });
   },
