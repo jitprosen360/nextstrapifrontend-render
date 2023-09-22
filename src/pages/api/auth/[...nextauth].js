@@ -2,7 +2,7 @@ import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import { signIn } from '../../../../middleware/auth';
-import { getSession } from 'next-auth/react';
+import { getSession , signOut } from 'next-auth/react';
 
 export default NextAuth({
   // Configure one or more authentication providers
@@ -76,7 +76,7 @@ export default NextAuth({
       // Return the new token (optional) or a success message
       return Promise.resolve({ token, success: true });
     }
-  
+    await signOut({ callbackUrl: '/' });
     // Return a response if there is no active session
     return Promise.resolve({token, success: false });
   },
