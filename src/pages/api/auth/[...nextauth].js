@@ -71,14 +71,14 @@ export default NextAuth({
     // Check if there is an active session
     if (token) {
       // Create a new short-lived token (e.g., expires in a few seconds)
-      const newToken = await signToken({ userId: token.user }, { expiresIn: '5s' });
+      const token = await signToken({ token : token.user }, { expiresIn: '360s' });
   
       // Return the new token (optional) or a success message
-      return Promise.resolve({ newToken, success: true });
+      return Promise.resolve({ token, success: true });
     }
   
     // Return a response if there is no active session
-    return Promise.resolve({ success: false });
+    return Promise.resolve({token, success: false });
   },
   
   

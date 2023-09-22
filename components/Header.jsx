@@ -26,6 +26,29 @@ const Header = () => {
     const toggleDropdown = () => {
       setIsOpen(!isOpen);
     };
+
+    const handleLogout = async () => {
+        try {
+            await signOut();
+          // Clear the current session (e.g., invalidate the token or remove cookies)
+          // ...
+    
+          // Generate a new session for the user (e.g., create a new token)
+          const newSession = await createNewSession(); // Implement createNewSession() as needed
+    
+          // Update the client-side session with the new session
+          // ...
+    
+          // Redirect the user to a post-logout page or display a success message
+          // ...
+    
+          // Alternatively, you can display a success message or update the UI
+          // ...
+    
+        } catch (error) {
+          console.error('Logout failed:', error);
+        }
+      };
   
 
     const controlNavbar = () => {
@@ -56,10 +79,11 @@ const Header = () => {
         const { data } = await fetchDataFromApi("/api/categories?populate=*");
         setCategories(data);
     };
-    useEffect(() => {
-        if (session == null) return;
-        console.log('session.jwt', session.jwt);
-      }, [session]);
+    // useEffect(() => {
+    //     if (session == null) return;
+    //     console.log('session.jwt', session.jwt);
+       
+    //   }, [session]);
 
     return (
         <header
@@ -141,8 +165,8 @@ const Header = () => {
             </a>
          
             <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-            <button onClick={signOut}>Sign out</button>
-          {  console.log(signOut)}
+            <button onClick={handleLogout}>Sign out</button>
+          {  console.log(handleLogout)}
             </a>
           </div>
         </div>
