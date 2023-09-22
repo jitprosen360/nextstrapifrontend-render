@@ -28,7 +28,7 @@ const Header = () => {
     };
   
     const handleLogout = async () => {
-        await signOut(session);
+        await signOut(data);
       };
 
     const controlNavbar = () => {
