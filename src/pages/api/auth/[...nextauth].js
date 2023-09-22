@@ -2,7 +2,6 @@ import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import { signIn } from '../../../../middleware/auth';
-import { makePaymentRequest } from "./../../../utils/api";
 
 export default NextAuth({
   // Configure one or more authentication providers
@@ -54,7 +53,7 @@ export default NextAuth({
       return Promise.resolve(session);
     },
    
-    jwt: async ({ token, user , session   }) => {
+    jwt: async ({ token, user    }) => {
       const isSignIn = user ? true : false;
       if (isSignIn ) {
         token.id = user.id;
@@ -62,6 +61,12 @@ export default NextAuth({
    
       }
       return Promise.resolve(token);
+    },
+    signOut: async (params) => {
+      // Add logic to clear the user's session or perform any necessary logout actions
+      await signOut(params);
+  
+      return Promise.resolve();
     },
   },
 

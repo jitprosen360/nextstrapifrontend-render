@@ -39,7 +39,16 @@ export async function signIn({ email, password, username, id_token, access_token
   }
 }
 
-
+export async function signOut(params) {
+  // Implement logic to clear the user's session or perform any necessary logout actions
+  // For example, if you are using cookies for session management, you can clear the cookies here.
+  
+  // Example using cookies (you may need to adjust this based on your session management method):
+  params.res.setHeader('Set-Cookie', `authToken=; path=/; expires=Thu, 01 Jan 2023 00:00:00 GMT`);
+  
+  // Redirect the user to the home page or any other appropriate page after logout
+  params.res.redirect('/');
+}
 
 // export async function signIn({ email, password,username }) {
 //   const res = await axios.post(`${strapiUrl}/api/auth/local`, {
