@@ -64,23 +64,7 @@ export default NextAuth({
       return Promise.resolve(token);
     },
   },
-  signOut: async (session) => {
-    // Use getSession to get the user's session token
-    const token = await getSession({ req: session.req });
-  
-    // Check if there is an active session
-    if (token) {
-      // Create a new short-lived token (e.g., expires in a few seconds)
-      const token = await signToken({ token : token.user }, { expiresIn: '360s' });
-  
-      // Return the new token (optional) or a success message
-      return Promise.resolve({ token, success: true });
-    }
-    // Return a response if there is no active session
-    return Promise.resolve({token, success: false });
-  },
-  
-  
+
 
   secret: process.env.NEXTAUTH_SECRET,
 });

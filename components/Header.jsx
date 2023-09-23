@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Wrapper from "./Wrapper";
+import { signOut, useSession } from 'next-auth/react';
 import Link from "next/link";
 import Menu from "./Menu";
 import MenuMobile from ".//MenuMobile";
@@ -10,7 +11,7 @@ import { BiMenuAltRight } from "react-icons/bi";
 import { VscChromeClose } from "react-icons/vsc";
 import { fetchDataFromApi } from "../src/utils/api";
 import  {useSelector}  from "react-redux";
-import { signOut, useSession, getSession } from 'next-auth/react';
+
 const Header = () => {
     const { data: session } = useSession();
     const cartItems  = useSelector((state) => state.cart.cartItems);
@@ -24,32 +25,6 @@ const Header = () => {
 
     const toggleDropdown = () => {
       setIsOpen(!isOpen);
-    };
-
-    const handleLogout = async () => {
-        try {
-            await signOut();
-    
-            // Clear the current session (e.g., invalidate the token or remove cookies)
-            // ...
-    
-            // Generate a new session for the user (e.g., create a new token)
-            const newSession = await createNewSession(); // Implement createNewSession() as needed
-    
-            // Update the client-side session with the new session
-            const { data: updatedSession } = getSession(); // Get the updated session
-            if (updatedSession) {
-                // You can update your UI with the new session data if needed
-                // For example, you can update the user's name or email in the UI
-                console.log('Updated Session:', updatedSession);
-            }
-    
-            // Redirect the user to a post-logout page or display a success message
-            // ...
-    
-        } catch (error) {
-            console.error('Logout failed:', error);
-        }
     };
   
 
@@ -84,7 +59,6 @@ const Header = () => {
     useEffect(() => {
         if (session == null) return;
         console.log('session.jwt', session.jwt);
-       
       }, [session]);
 
     return (
@@ -167,8 +141,8 @@ const Header = () => {
             </a>
          
             <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-            <button onClick={handleLogout}>Sign out</button>
-          {  console.log(handleLogout)}
+            <button onClick={signOut()}>Sign out</button>
+        
             </a>
           </div>
         </div>
