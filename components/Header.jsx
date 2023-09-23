@@ -26,6 +26,18 @@ const Header = () => {
     const toggleDropdown = () => {
       setIsOpen(!isOpen);
     };
+
+    const handlelogout = async () => {
+        if (session) {
+            signOut();
+        try {
+            await signOut();
+        } catch (error) {
+            console.error('Error signing out:', error);
+        }
+    }
+    }
+    
   
 
     const controlNavbar = () => {
@@ -118,6 +130,7 @@ const Header = () => {
               
 { session ? ( <div className="relative inline-block text-left">
       <div>
+        
         <button
           type="button"
           onClick={toggleDropdown}
@@ -127,6 +140,8 @@ const Header = () => {
          {session.user.username}
          {/* {console.log(session)} */}
         </button>
+
+
       </div>
       {isOpen && (
         <div className="absolute z-10 mt-2 bg-white border border-gray-300 rounded-md shadow-lg">
@@ -140,8 +155,15 @@ const Header = () => {
                Orders
             </a>
          
-            <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-            <button onClick={signOut()}>Sign out</button>
+            <a href="/signin" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+            <button 
+            // onClick={handlelogout}
+            onClick={handlelogout}
+            
+            >
+                
+                
+                Sign out</button>
         
             </a>
           </div>
