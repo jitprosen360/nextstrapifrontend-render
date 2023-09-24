@@ -26,18 +26,6 @@ const Header = () => {
     const toggleDropdown = () => {
       setIsOpen(!isOpen);
     };
-
-    const handlelogout = async () => {
-        if (session) {
-            signOut();
-        try {
-            await signOut();
-        } catch (error) {
-            console.error('Error signing out:', error);
-        }
-    }
-    }
-    
   
 
     const controlNavbar = () => {
@@ -72,6 +60,13 @@ const Header = () => {
         if (session == null) return;
         console.log('session.jwt', session.jwt);
       }, [session]);
+
+      const handlelogout = async() => {
+        localStorage.removeItem(session);
+        console.log("Before sign out");
+        await signOut();
+        console.log("After sign out");
+      }
 
     return (
         <header
@@ -130,7 +125,6 @@ const Header = () => {
               
 { session ? ( <div className="relative inline-block text-left">
       <div>
-        
         <button
           type="button"
           onClick={toggleDropdown}
@@ -140,8 +134,6 @@ const Header = () => {
          {session.user.username}
          {/* {console.log(session)} */}
         </button>
-
-
       </div>
       {isOpen && (
         <div className="absolute z-10 mt-2 bg-white border border-gray-300 rounded-md shadow-lg">
@@ -156,14 +148,7 @@ const Header = () => {
             </a>
          
             <a href="/signin" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-            <button 
-            // onClick={handlelogout}
-            onClick={handlelogout}
-            
-            >
-                
-                
-                Sign out</button>
+            <button onClick={handlelogout}>Sign out</button>
         
             </a>
           </div>

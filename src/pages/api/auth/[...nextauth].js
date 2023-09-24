@@ -2,7 +2,7 @@ import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import { signIn } from '../../../../middleware/auth';
-
+import { signOut } from 'next-auth/react';
 
 export default NextAuth({
   // Configure one or more authentication providers
@@ -63,6 +63,7 @@ export default NextAuth({
       }
       return Promise.resolve(token);
     },
+
   },
 
 
