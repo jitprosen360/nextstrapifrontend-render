@@ -7,7 +7,7 @@ import MenuMobile from ".//MenuMobile";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { BsCart } from "react-icons/bs";
 import { BiMenuAltRight } from "react-icons/bi";
-
+import Cookies from "js-cookie";
 import { VscChromeClose } from "react-icons/vsc";
 import { fetchDataFromApi } from "../src/utils/api";
 import  {useSelector}  from "react-redux";
@@ -62,30 +62,22 @@ const Header = () => {
       }, [session]);
 
       const handleSignOut = async () => {
-
         try {
-            await signOut();
-            const session = await getSession();
-            if (session) {
-                await signOut();
-        
-                // Remove specific cookies
-                document.cookie = "next-auth.session-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-                document.cookie = "next-auth.csrf-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-                
-                // Clear any client-side state related to authentication
-                // For example, reset any Redux state or context state related to authentication
-            }
-            console.log("User signed out successfully!");
-            
-            // Additional actions if needed
-          } catch (error) {
-            console.error("Error signing out:", error);
+          await signOut({ redirect: false });
+          const session = await getSession();
+          if (!session) {
+            // Remove specific cookies
+            Cookies.remove("next-auth.session-token");
+            Cookies.remove("next-auth.csrf-token");
+            document.cookie = "next-auth.session-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "next-auth.csrf-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            console.log("Cookies removed successfully!");
           }
-      
-        
-
+        } catch (error) {
+          console.error("Error signing out:", error);
+        }
       };
+
 
     return (
         <header
