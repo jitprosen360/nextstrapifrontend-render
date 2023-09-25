@@ -11,9 +11,11 @@ import Cookies from "js-cookie";
 import { VscChromeClose } from "react-icons/vsc";
 import { fetchDataFromApi } from "../src/utils/api";
 import  {useSelector}  from "react-redux";
+import { useRouter } from 'next/router';
 
 const Header = () => {
     const { data: session } = useSession();
+    const router = useRouter();
     const cartItems  = useSelector((state) => state.cart.cartItems);
     const favItems  = useSelector((state) => state.fav.favItems);
     const [mobileMenu, setMobileMenu] = useState(false);
@@ -61,14 +63,14 @@ const Header = () => {
         console.log('session.jwt', session.jwt);
       }, [session]);
 
-      const handleSignOut = async () => {
+      const handleSignOut = async (event) => {
+        event.preventDefault(); // Prevent the default behavior (form submission / page reload)
+        
         try {
           await signOut({ redirect: false });
           const session = await getSession();
           if (!session) {
             // Remove specific cookies
-            Cookies.remove("next-auth.session-token");
-            Cookies.remove("next-auth.csrf-token");
             document.cookie = "next-auth.session-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             document.cookie = "next-auth.csrf-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             console.log("Cookies removed successfully!");
@@ -76,8 +78,10 @@ const Header = () => {
         } catch (error) {
           console.error("Error signing out:", error);
         }
+   
+        router.push('/signin');
       };
-
+      
 
     return (
         <header
@@ -158,9 +162,8 @@ const Header = () => {
                Orders
             </a>
          
-            <a href="/signin" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-            <button onClick={handleSignOut}>Sign out</button>
-        
+            <a className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+            <button onClick={(event) => handleSignOut(event)}>Sign out</button>
             </a>
           </div>
         </div>
