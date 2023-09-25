@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Wrapper from "./Wrapper";
-import { signOut, useSession } from 'next-auth/react';
+import { signOut, useSession , getSession  } from 'next-auth/react';
 import Link from "next/link";
 import Menu from "./Menu";
 import MenuMobile from ".//MenuMobile";
@@ -61,12 +61,31 @@ const Header = () => {
         console.log('session.jwt', session.jwt);
       }, [session]);
 
-      const handlelogout = async() => {
-        localStorage.removeItem(session);
-        console.log("Before sign out");
-        await signOut();
-        console.log("After sign out");
-      }
+      const handleSignOut = async () => {
+
+        try {
+            await signOut();
+            const session = await getSession();
+            if (session) {
+                await signOut();
+        
+                // Remove specific cookies
+                document.cookie = "next-auth.session-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                document.cookie = "next-auth.csrf-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                
+                // Clear any client-side state related to authentication
+                // For example, reset any Redux state or context state related to authentication
+            }
+            console.log("User signed out successfully!");
+            
+            // Additional actions if needed
+          } catch (error) {
+            console.error("Error signing out:", error);
+          }
+      
+        
+
+      };
 
     return (
         <header
@@ -148,7 +167,7 @@ const Header = () => {
             </a>
          
             <a href="/signin" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
-            <button onClick={handlelogout}>Sign out</button>
+            <button onClick={handleSignOut}>Sign out</button>
         
             </a>
           </div>

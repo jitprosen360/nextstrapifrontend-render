@@ -48,7 +48,8 @@ export default NextAuth({
     }),
   ],
   callbacks: {
-    session: async ({ session, token }) => {
+    session: async ({ session, token ,user}) => {
+   
       session.id = token.id;
       session.jwt = token.jwt;
       return Promise.resolve(session);
@@ -63,6 +64,7 @@ export default NextAuth({
       }
       return Promise.resolve(token);
     },
+
 
   },
 
