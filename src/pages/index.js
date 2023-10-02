@@ -37,7 +37,7 @@ export default function Home({ products }) {
       <main className="flex flex-col md:flex-row">
         <div className="w-full md:w-1/4 p-4">
           <div className="bg-white p-4 shadow rounded-md mb-4">
-            <h2 className="text-xl font-semibold mb-4">Categories</h2>
+            <h2 className="text-xl font-semibold mb-4 text-black">Categories</h2>
             <ul className="space-y-2">
               <li
                 className={`h-12 flex justify-between items-center px-3 hover:bg-blue-200 rounded-md cursor-pointer mb-2 ${
@@ -57,7 +57,7 @@ export default function Home({ products }) {
                     onClick={() => handleCategoryClick(c.slug)}
                   >
                     {c.name}
-                    <span className="opacity-50 text-sm">
+                    <span className="opacity-50 text-sm text-black">
                       {`(${c.products.data.length})`}
                     </span>
                   </li>
@@ -65,14 +65,14 @@ export default function Home({ products }) {
             </ul>
           </div>
           <div className="bg-white p-4 shadow rounded-md mb-4">
-            <h2 className="text-xl font-semibold mb-4">Price Range</h2>
+            <h2 className="text-xl font-semibold mb-4 text-black">Price Range</h2>
             <label className="flex items-center mb-2">
               <input
                 type="checkbox"
                 checked={!selectedPriceRange}
                 onChange={() => handlePriceCheckboxChange(null)}
               />
-              <span className="ml-2">All Prices</span>
+              <span className="ml-2 text-black">All Prices</span>
             </label>
             <label className="flex items-center mb-2">
               <input
@@ -80,7 +80,7 @@ export default function Home({ products }) {
                 checked={selectedPriceRange === "low"}
                 onChange={() => handlePriceCheckboxChange("low")}
               />
-              <span className="ml-2">Low</span>
+              <span className="ml-2 text-black">Low</span>
             </label>
             <label className="flex items-center mb-2">
               <input
@@ -88,7 +88,7 @@ export default function Home({ products }) {
                 checked={selectedPriceRange === "medium"}
                 onChange={() => handlePriceCheckboxChange("medium")}
               />
-              <span className="ml-2">Medium</span>
+              <span className="ml-2 text-black">Medium</span>
             </label>
             <label className="flex items-center mb-2">
               <input
@@ -96,16 +96,16 @@ export default function Home({ products }) {
                 checked={selectedPriceRange === "high"}
                 onChange={() => handlePriceCheckboxChange("high")}
               />
-              <span className="ml-2">High</span>
+              <span className="ml-2 text-black">High</span>
             </label>
           </div>
         </div>
         <div className="w-full md:w-3/4 p-4">
           <div className="bg-white p-4 shadow rounded-md mb-4 flex items-center justify-center">
-            <h2 className="text-xl font-semibold mr-4">Search Product</h2>
+            <h2 className="text-xl font-semibold mr-4 text-black">Search Product</h2>
             <input
               type="text"
-              className="w-full p-2 border border-gray-300 rounded-l-md rounded-r-none"
+              className="w-full p-2 border border-gray-300 rounded-l-md rounded-r-none text-black"
               placeholder="Enter product name"
               value={searchTerm}
               onChange={handleSearchInputChange}
@@ -151,6 +151,7 @@ export default function Home({ products }) {
         </div>
       </main>
     </div>
+    
     );
   }
 
